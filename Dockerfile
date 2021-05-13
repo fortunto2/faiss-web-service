@@ -21,7 +21,7 @@ RUN curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest
 
 ENV PATH /opt/conda/bin:$PATH
 
-RUN /opt/conda/bin/conda install -c pytorch faiss-cpu=
+RUN /opt/conda/bin/conda install -c pytorch faiss-cpu=1.7.0
 
 RUN pip install pipenv
 RUN pipenv --python=/opt/conda/bin/python --site-packages
@@ -31,11 +31,12 @@ RUN mkdir /app && cd /app
 RUN pip install poetry
 COPY pyproject.toml /app/
 
+WORKDIR /app
+
 ARG YOUR_ENV
 # Project initialization:
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 
-COPY resources /opt/faiss-web-service/resources
-COPY src /opt/faiss-web-service/src
+COPY resources /app/resources
+COPY src /app/src
 
-WORKDIR /app

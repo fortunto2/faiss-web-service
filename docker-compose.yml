@@ -2,11 +2,11 @@ version: "3.3"
 services:
 
   faiss-cpu:
-    image: lifefilm/faiss-server:${TAG-latest}'
+    image: lifefilm/faiss-server:latest
 #    env_file:
 #      - .env
     volumes:
-      - ./resources:/opt/faiss-web-service/resources
+      - ./resources:/app/resources
       - /tmp:/tmp
     ports:
       - 5000:5000
@@ -15,4 +15,4 @@ services:
       dockerfile: Dockerfile
     networks:
       - default
-    command: python /opt/faiss-web-service/src/app.py
+    command: python /app/src/app.py
